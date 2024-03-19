@@ -1,6 +1,7 @@
 package com.smalaca.order.infrastructure.rest.basket;
 
 import com.smalaca.order.application.basket.BasketApplicationService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,5 +22,11 @@ public class BasketController {
     @RequestMapping("${basketId}/product")
     public void addProduct(@PathVariable UUID basketId) {
         service.addProduct(basketId);
+    }
+
+    @DeleteMapping
+    @RequestMapping("${basketId}/product")
+    public void removeProduct(@PathVariable UUID basketId) {
+        service.removeProduct(basketId);
     }
 }

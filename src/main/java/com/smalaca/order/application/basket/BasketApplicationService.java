@@ -22,4 +22,13 @@ public class BasketApplicationService {
 
         basketRepository.save(basket);
     }
+
+    @PrimaryAdapter
+    public void removeProduct(UUID basketId) {
+        Basket basket = basketRepository.findById(basketId);
+
+        basket.removeProduct();
+
+        basketRepository.save(basket);
+    }
 }
