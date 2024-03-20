@@ -1,12 +1,11 @@
 package com.smalaca.shopmanagement.infrastructure.rest.assortment;
 
+import com.smalaca.shopmanagement.application.assortment.AddProductDto;
 import com.smalaca.shopmanagement.application.assortment.AssortmentApplicationService;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/assortment")
@@ -19,7 +18,7 @@ public class AssortmentController {
 
     @PostMapping
     @RequestMapping("/product/${assortmentId}")
-    public void addProduct(@PathVariable UUID assortmentId) {
-        service.addProduct(assortmentId);
+    public void addProduct(@RequestBody AddProductDto dto) {
+        service.addProduct(dto);
     }
 }
