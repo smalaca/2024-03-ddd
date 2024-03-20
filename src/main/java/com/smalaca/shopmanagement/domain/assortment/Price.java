@@ -23,6 +23,6 @@ public class Price {
     }
 
     private static boolean isPriceLowerThanOne(BigDecimal price) {
-        return false;
+        return price.compareTo(BigDecimal.ONE) < 0;
     }
 }
