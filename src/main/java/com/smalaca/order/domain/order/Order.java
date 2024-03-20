@@ -2,6 +2,7 @@ package com.smalaca.order.domain.order;
 
 import com.smalaca.annotation.architecture.PrimaryPort;
 import com.smalaca.annotation.ddd.AggregateRoot;
+import com.smalaca.order.domain.eventpublisher.EventPublisher;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,8 +46,9 @@ public class Order {
     }
 
     @PrimaryPort
-    public void cancel(Optional<String> reason) {
+    public void cancel(Optional<String> reason, EventPublisher eventPublisher) {
         status = CANCEL;
         reason.ifPresent(presentReason -> this.cancellationReason = presentReason);
+        eventPublisher.publish(OrderCancelled.create(orderId, orderNumber));
     }
 }
