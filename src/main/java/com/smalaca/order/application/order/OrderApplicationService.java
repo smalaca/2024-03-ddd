@@ -25,4 +25,13 @@ public class OrderApplicationService {
 
         orderRepository.save(order);
     }
+
+    @PrimaryAdapter
+    public void accept(UUID orderId) {
+        Order order = orderRepository.findById(orderId);
+
+        order.accept(eventPublisher);
+
+        orderRepository.save(order);
+    }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.smalaca.order.domain.order.OrderStatus.ACCEPTED;
 import static com.smalaca.order.domain.order.OrderStatus.CANCEL;
 import static com.smalaca.order.domain.order.OrderStatus.CREATED;
 
@@ -50,5 +51,11 @@ public class Order {
         status = CANCEL;
         reason.ifPresent(presentReason -> this.cancellationReason = presentReason);
         eventPublisher.publish(OrderCancelled.create(orderId, orderNumber));
+    }
+
+    @PrimaryPort
+    public void accept(EventPublisher eventPublisher) {
+        status = ACCEPTED;
+        eventPublisher.publish(PurchasePaid.create(orderId));
     }
 }
