@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @AggregateRoot
@@ -34,9 +35,10 @@ public class Basket {
     }
 
     private BasketItem itemFor(UUID productId) {
-        return items.stream()
+        Optional<BasketItem> found = items.stream()
                 .filter(basketItem -> basketItem.isFor(productId))
-                .findFirst()
-                .get();
+                .findFirst();
+
+        return found.orElseThrow(() -> new ProductNotFoundException(productId));
     }
 }
