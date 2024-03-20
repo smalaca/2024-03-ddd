@@ -19,7 +19,7 @@ public class AssortmentApplicationService {
         // 1. tłumaczenie na Aggregate albo ValueObject [0...*]
         Assortment assortment = assortmentRepository.findById(dto.assortmentId());
         Amount amount = Amount.from(dto.amount());
-        Price price = new Price(dto.price());
+        Price price = Price.from(dto.price());
         AddProductCommand command = new AddProductCommand(dto.name(), dto.description(), dto.serialNumber(), price);
 
         // 2. wywołanie metody z domain [1]
