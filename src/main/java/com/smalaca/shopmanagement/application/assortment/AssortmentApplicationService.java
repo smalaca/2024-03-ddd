@@ -6,12 +6,15 @@ import com.smalaca.shopmanagement.domain.assortment.Amount;
 import com.smalaca.shopmanagement.domain.assortment.Assortment;
 import com.smalaca.shopmanagement.domain.assortment.AssortmentRepository;
 import com.smalaca.shopmanagement.domain.assortment.Price;
+import com.smalaca.shopmanagement.domain.productverificationservice.ProductVerificationService;
 
 public class AssortmentApplicationService {
     private final AssortmentRepository assortmentRepository;
+    private final ProductVerificationService productVerificationService;
 
-    public AssortmentApplicationService(AssortmentRepository assortmentRepository) {
+    public AssortmentApplicationService(AssortmentRepository assortmentRepository, ProductVerificationService productVerificationService) {
         this.assortmentRepository = assortmentRepository;
+        this.productVerificationService = productVerificationService;
     }
 
     @PrimaryAdapter
@@ -23,7 +26,7 @@ public class AssortmentApplicationService {
         AddProductCommand command = new AddProductCommand(dto.name(), dto.description(), dto.serialNumber(), price);
 
         // 2. wywołanie metody z domain [1]
-        assortment.addProduct(amount, command);
+        assortment.addProduct(amount, command, productVerificationService);
 
         // 3. zapisanie zmian [0...*]
         assortmentRepository.save(assortment);
