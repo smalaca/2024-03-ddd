@@ -15,13 +15,13 @@ public class Order {
     @Id
     private UUID orderId;
     // business identifier
-    private final String orderNumber;
+    private final OrderNumber orderNumber;
     private final UUID summaryId;
     private final UUID buyerId;
     private OrderStatus status;
     private String cancellationReason;
 
-    public Order(String orderNumber, UUID summaryId, UUID buyerId) {
+    public Order(OrderNumber orderNumber, UUID summaryId, UUID buyerId) {
         this.orderNumber = orderNumber;
         this.summaryId = summaryId;
         this.buyerId = buyerId;
