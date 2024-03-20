@@ -3,6 +3,8 @@ package com.smalaca.order.domain.order;
 import com.smalaca.annotation.architecture.PrimaryPort;
 import com.smalaca.annotation.ddd.AggregateRoot;
 import com.smalaca.order.domain.eventpublisher.EventPublisher;
+import com.smalaca.order.domain.paymentservice.PaymentDto;
+import com.smalaca.order.domain.paymentservice.PaymentService;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +38,7 @@ public class Order {
     private final Address deliveryAddress;
     private OrderStatus status;
     private String cancellationReason;
+    private Price price;
 
     Order(OrderNumber orderNumber, UUID summaryId, UUID buyerId, List<OrderItem> items, Address deliveryAddress) {
         this.orderNumber = orderNumber;
@@ -54,8 +57,9 @@ public class Order {
     }
 
     @PrimaryPort
-    public void accept(EventPublisher eventPublisher) {
+    public void accept(PaymentService paymentService, EventPublisher eventPublisher) {
         status = ACCEPTED;
+        paymentService.pay(new PaymentDto(buyerId, orderId, price.value()));
         eventPublisher.publish(PurchasePaid.create(orderId));
     }
 }
