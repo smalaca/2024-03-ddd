@@ -1,6 +1,7 @@
 package com.smalaca.order.domain.basket;
 
 import com.smalaca.annotation.ddd.DomainEntity;
+import com.smalaca.order.domain.amount.Amount;
 
 import java.util.UUID;
 

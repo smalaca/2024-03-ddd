@@ -1,4 +1,4 @@
-package com.smalaca.order.domain.basket;
+package com.smalaca.order.domain.amount;
 
 import com.smalaca.annotation.ddd.ValueObject;
 
@@ -18,11 +18,11 @@ public class Amount {
         return new Amount(amount);
     }
 
-    boolean isGreaterThan(Amount amount) {
+    public boolean isGreaterThan(Amount amount) {
         return this.amount > amount.amount;
     }
 
-    Amount minus(Amount amount) {
+    public Amount minus(Amount amount) {
         return Amount.from(this.amount - amount.amount);
     }
 }

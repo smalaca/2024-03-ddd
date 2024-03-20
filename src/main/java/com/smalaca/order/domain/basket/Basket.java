@@ -2,6 +2,7 @@ package com.smalaca.order.domain.basket;
 
 import com.smalaca.annotation.architecture.PrimaryPort;
 import com.smalaca.annotation.ddd.AggregateRoot;
+import com.smalaca.order.domain.amount.Amount;
 import jakarta.persistence.Id;
 
 import java.util.ArrayList;

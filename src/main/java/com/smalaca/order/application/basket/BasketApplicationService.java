@@ -1,7 +1,7 @@
 package com.smalaca.order.application.basket;
 
 import com.smalaca.annotation.architecture.PrimaryAdapter;
-import com.smalaca.order.domain.basket.Amount;
+import com.smalaca.order.domain.amount.Amount;
 import com.smalaca.order.domain.basket.Basket;
 import com.smalaca.order.domain.basket.BasketRepository;
 
