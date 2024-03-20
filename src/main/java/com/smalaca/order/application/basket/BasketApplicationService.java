@@ -1,7 +1,7 @@
 package com.smalaca.order.application.basket;
 
 import com.smalaca.annotation.architecture.PrimaryAdapter;
-import com.smalaca.annotation.architecture.PrimaryPort;
+import com.smalaca.order.domain.basket.Amount;
 import com.smalaca.order.domain.basket.Basket;
 import com.smalaca.order.domain.basket.BasketRepository;
 
@@ -15,10 +15,11 @@ public class BasketApplicationService {
     }
 
     @PrimaryAdapter
-    public void addProduct(UUID basketId) {
-        Basket basket = basketRepository.findById(basketId);
+    public void addProduct(AddProductDto dto) {
+        Basket basket = basketRepository.findById(dto.basketId());
+        Amount amount = new Amount(dto.amount());
 
-        basket.addProduct();
+        basket.addProduct(dto.productId(), amount);
 
         basketRepository.save(basket);
     }
