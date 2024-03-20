@@ -4,6 +4,7 @@ import com.smalaca.annotation.architecture.PrimaryAdapter;
 import com.smalaca.order.domain.order.Order;
 import com.smalaca.order.domain.order.OrderRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class OrderApplicationService {
@@ -14,10 +15,10 @@ public class OrderApplicationService {
     }
 
     @PrimaryAdapter
-    public void cancel(UUID orderId) {
+    public void cancel(UUID orderId, Optional<String> reason) {
         Order order = orderRepository.findById(orderId);
 
-        order.cancel();
+        order.cancel(reason);
 
         orderRepository.save(order);
     }
