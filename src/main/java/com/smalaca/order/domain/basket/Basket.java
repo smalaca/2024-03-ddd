@@ -23,7 +23,13 @@ public class Basket {
     }
 
     @PrimaryPort
-    public void removeProduct() {
+    public void removeProduct(UUID productId, Amount amount) {
+        Amount currentAmount = products.get(productId);
 
+        if (currentAmount.sameAs(amount)) {
+            products.remove(productId);
+        } else {
+            products.put(productId, currentAmount.minus(amount));
+        }
     }
 }
