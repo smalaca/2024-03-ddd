@@ -6,8 +6,16 @@ import com.smalaca.annotation.ddd.ValueObject;
 public class Amount {
     private final int amount;
 
-    public Amount(int amount) {
+    private Amount(int amount) {
         this.amount = amount;
+    }
+
+    public static Amount from(int amount) {
+        if (amount < 1) {
+            throw new AmountException(amount);
+        }
+
+        return new Amount(amount);
     }
 
     boolean sameAs(Amount amount) {
@@ -15,6 +23,6 @@ public class Amount {
     }
 
     Amount minus(Amount amount) {
-        return new Amount(this.amount - amount.amount);
+        return Amount.from(this.amount - amount.amount);
     }
 }

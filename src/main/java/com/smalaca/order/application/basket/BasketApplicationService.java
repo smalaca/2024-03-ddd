@@ -15,7 +15,7 @@ public class BasketApplicationService {
     @PrimaryAdapter
     public void addProduct(AddProductDto dto) {
         Basket basket = basketRepository.findById(dto.basketId());
-        Amount amount = new Amount(dto.amount());
+        Amount amount = Amount.from(dto.amount());
 
         basket.addProduct(dto.productId(), amount);
 
@@ -25,7 +25,7 @@ public class BasketApplicationService {
     @PrimaryAdapter
     public void removeProduct(RemoveProductDto dto) {
         Basket basket = basketRepository.findById(dto.basketId());
-        Amount amount = new Amount(dto.amount());
+        Amount amount = Amount.from(dto.amount());
 
         basket.removeProduct(dto.productId(), amount);
 
