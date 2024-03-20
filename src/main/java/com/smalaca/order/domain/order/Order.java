@@ -20,14 +20,16 @@ public class Order {
     private final UUID summaryId;
     private final UUID buyerId;
     private final List<OrderItem> items;
+    private final Address deliveryAddress;
     private OrderStatus status;
     private String cancellationReason;
 
-    public Order(OrderNumber orderNumber, UUID summaryId, UUID buyerId, List<OrderItem> items) {
+    Order(OrderNumber orderNumber, UUID summaryId, UUID buyerId, List<OrderItem> items, Address deliveryAddress) {
         this.orderNumber = orderNumber;
         this.summaryId = summaryId;
         this.buyerId = buyerId;
         this.items = items;
+        this.deliveryAddress = deliveryAddress;
         this.status = CREATED;
     }
 

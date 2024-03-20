@@ -6,5 +6,5 @@ import java.util.Map;
 import java.util.UUID;
 
 public record CreateOrderCommand(
-        UUID summaryId, UUID buyerId, Map<UUID, Amount> products) {
+        UUID summaryId, UUID buyerId, Map<UUID, Amount> products, Address address) {
 }

@@ -16,15 +16,16 @@ public class OrderFactory {
     }
 
     public Order create(CreateOrderCommand command) {
-        if (!warehouse.block(asProductToBlockDtos(command))) {
+        if (warehouse.block(asProductToBlockDtos(command))) {
+            return new Order(
+                    orderNumber(command),
+                    command.summaryId(),
+                    command.buyerId(),
+                    asOrderItems(command),
+                    command.address());
+        } else {
             throw new UnavailableProductsException(command);
         }
-
-        return new Order(
-                orderNumber(command),
-                command.summaryId(),
-                command.buyerId(),
-                asOrderItems(command));
     }
 
     private List<ProductToBlockDto> asProductToBlockDtos(CreateOrderCommand command) {
