@@ -1,6 +1,7 @@
 package com.smalaca.order.domain.order;
 
 import com.smalaca.annotation.ddd.Factory;
+import com.smalaca.order.domain.warehouse.ProductToBlockDto;
 import com.smalaca.order.domain.warehouse.Warehouse;
 
 import java.util.ArrayList;
@@ -15,10 +16,30 @@ public class OrderFactory {
     }
 
     public Order create(CreateOrderCommand command) {
-        OrderNumber orderNumber = OrderNumber.from(command.buyerId());
+        if (!warehouse.block(asProductToBlockDtos(command))) {
+            throw new UnavailableProductsException(command);
+        }
+
+        return new Order(
+                orderNumber(command),
+                command.summaryId(),
+                command.buyerId(),
+                asOrderItems(command));
+    }
+
+    private List<ProductToBlockDto> asProductToBlockDtos(CreateOrderCommand command) {
+        List<ProductToBlockDto> products = new ArrayList<>();
+        command.products().forEach((id, amount) -> products.add(new ProductToBlockDto(id, amount)));
+        return products;
+    }
+
+    private OrderNumber orderNumber(CreateOrderCommand command) {
+        return OrderNumber.from(command.buyerId());
+    }
+
+    private List<OrderItem> asOrderItems(CreateOrderCommand command) {
         List<OrderItem> items = new ArrayList<>();
         command.products().forEach((id, amount) -> items.add(new OrderItem(id, amount)));
-
-        return new Order(orderNumber, command.summaryId(), command.buyerId(), items);
+        return items;
     }
 }
