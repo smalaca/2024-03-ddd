@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @SecondaryAdapter
 public class JpaOrderRepository implements OrderRepository {
+
     @Override
     public Order findById(UUID orderId) {
         return null;
