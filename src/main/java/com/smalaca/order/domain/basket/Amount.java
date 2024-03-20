@@ -18,8 +18,8 @@ public class Amount {
         return new Amount(amount);
     }
 
-    boolean sameAs(Amount amount) {
-        return amount.amount == this.amount;
+    boolean isGreaterThan(Amount amount) {
+        return this.amount > amount.amount;
     }
 
     Amount minus(Amount amount) {

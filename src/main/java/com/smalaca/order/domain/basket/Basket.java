@@ -27,10 +27,10 @@ public class Basket {
     public void removeProduct(UUID productId, Amount amount) {
         BasketItem item = itemFor(productId);
 
-        if (item.hasSameAs(amount)) {
-            items.remove(item);
-        } else {
+        if (item.hasMoreThan(amount)) {
             item.remove(amount);
+        } else {
+            items.remove(item);
         }
     }
 

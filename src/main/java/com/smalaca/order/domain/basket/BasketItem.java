@@ -19,8 +19,8 @@ class BasketItem {
         return this.productId == productId;
     }
 
-    boolean hasSameAs(Amount amount) {
-        return this.amount.sameAs(amount);
+    boolean hasMoreThan(Amount amount) {
+        return this.amount.isGreaterThan(amount);
     }
 
     void remove(Amount amount) {
