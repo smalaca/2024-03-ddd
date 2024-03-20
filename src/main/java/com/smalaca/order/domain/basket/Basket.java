@@ -4,8 +4,8 @@ import com.smalaca.annotation.architecture.PrimaryPort;
 import com.smalaca.annotation.ddd.AggregateRoot;
 import jakarta.persistence.Id;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @AggregateRoot
@@ -15,21 +15,28 @@ public class Basket {
     // business identifier
     private UUID buyerId;
 
-    private final Map<UUID, Amount> products = new HashMap<>();
+    private final List<BasketItem> items = new ArrayList<>();
 
     @PrimaryPort
     public void addProduct(UUID productId, Amount amount) {
-        products.put(productId, amount);
+        items.add(new BasketItem(productId, amount));
     }
 
     @PrimaryPort
     public void removeProduct(UUID productId, Amount amount) {
-        Amount currentAmount = products.get(productId);
+        BasketItem item = itemFor(productId);
 
-        if (currentAmount.sameAs(amount)) {
-            products.remove(productId);
+        if (item.hasSameAs(amount)) {
+            items.remove(item);
         } else {
-            products.put(productId, currentAmount.minus(amount));
+            item.remove(amount);
         }
+    }
+
+    private BasketItem itemFor(UUID productId) {
+        return items.stream()
+                .filter(basketItem -> basketItem.isFor(productId))
+                .findFirst()
+                .get();
     }
 }

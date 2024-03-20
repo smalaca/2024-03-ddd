@@ -1,11 +1,12 @@
 package com.smalaca.shopmanagement.domain.assortment;
 
+import com.smalaca.annotation.ddd.DomainEntity;
 import com.smalaca.annotation.ddd.Factory;
-import jakarta.persistence.Entity;
 
-@Entity
-public class AssortmentItem {
+@DomainEntity
+class AssortmentItem {
     private final Amount amount;
+    // business identifier
     private final String serialNumber;
     private final Product product;
 
