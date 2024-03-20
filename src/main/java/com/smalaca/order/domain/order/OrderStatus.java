@@ -4,5 +4,5 @@ import com.smalaca.annotation.ddd.ValueObject;
 
 @ValueObject
 enum OrderStatus {
-    CANCEL
+    CREATED, CANCEL
 }
